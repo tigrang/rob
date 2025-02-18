@@ -1,0 +1,292 @@
+<html lang="en">
+<head>
+	<title>ROB Proxy</title>
+	<style>
+		html.dark {
+			body {
+				background-color: #2d2d2d;
+				color: #ccc;
+			}
+
+			.header {
+				background: #7B1818;
+			}
+
+			.code-container {
+				background: #232323;
+				box-shadow: inset -5px -5px 0px rgba(0, 0, 0, 0.5);
+			}
+		}
+
+		body {
+			padding: 0;
+			margin: 0;
+			line-height: 1.6;
+		}
+
+		.container {
+			padding: 20px;
+		}
+
+		h1 {
+			padding: 0;
+			margin: 0;
+			font-size: 1rem;
+		}
+
+		body, pre {
+			font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+		}
+
+		pre {
+			padding: 0;
+			margin: 0;
+		}
+
+		.info {
+			color: #f08d49;
+		}
+
+		.quote, .quote span {
+			color: #3399FF;
+		}
+
+		.warning {
+			color: #d4af37;
+		}
+
+		.error {
+			color: #e2777a;
+		}
+
+		.success {
+			color: #4CAF50;
+		}
+
+		.code {
+			color: #e83e8c;
+			border: 1px solid #e83e8c;
+			font-size: 0.8rem;
+			padding: 3px;
+			border-radius: 6px;
+			white-space: nowrap;
+		}
+
+		.output-line {
+			padding: 10px 0;
+			white-space: pre-wrap;
+		}
+
+		.highlight {
+			background: linear-gradient(to right, rgba(200, 200, 95, 0.2) 90%, rgba(0, 0, 0, 0) 100%);
+		}
+
+		.code-container {
+			margin: 10px 0 20px;
+			display: flex;
+			padding: 20px;
+			background: #f9f9f9;
+			border-radius: 12px;
+			box-shadow: inset -5px -5px 0px rgba(0, 0, 0, 0.1);
+			line-height: 1.6;
+		}
+
+		.line-numbers {
+			display: flex;
+			flex-direction: column;
+			text-align: right;
+			position: sticky;
+			color: #666;
+		}
+
+		.line-numbers > div {
+			padding-right: 30px;
+		}
+
+		.code-block {
+			flex-grow: 1;
+			overflow-x: auto;
+			overflow-y: hidden;
+			scrollbar-width: none;
+			padding-bottom: 0.5rem;
+		}
+
+		.line {
+			white-space: pre;
+			position: relative;
+			min-width: max-content;
+			height: 1.6rem;
+		}
+
+		.emphasize {
+			position: relative;
+		}
+
+		.emphasize::before,
+		.emphasize::after {
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			color: red;
+			font-size: 0.7rem;
+		}
+
+		.emphasize::before {
+			content: "⬇";
+			top: -1.0em;
+		}
+
+		.emphasize::after {
+			content: "⬆";
+			bottom: -1.4em;
+		}
+
+		.theme-toggle {
+			color: #fff;
+			background: transparent;
+			border: none;
+			border-radius: 8px;
+			padding: 10px;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+
+		.theme-toggle:hover {
+			background: #D32F2F;
+		}
+
+		.theme-toggle:focus {
+			outline: none;
+			box-shadow: 0 0 0 4px rgba(209, 213, 219, 0.5);
+		}
+
+		.theme-toggle.dark {
+			color: #9ca3af;
+		}
+
+		.theme-toggle.dark:hover {
+			background: #374151;
+		}
+
+		.theme-toggle.dark:focus {
+			box-shadow: 0 0 0 4px rgba(55, 65, 81, 0.5);
+		}
+
+		.icon {
+			width: 20px;
+			height: 20px;
+		}
+
+		.hidden {
+			display: none;
+		}
+
+		.header {
+			color: white;
+			background: #B71C1C;
+			box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.4);
+		}
+
+		.header-content {
+			display: flex;
+			padding: 6px 20px;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+		}
+	</style>
+</head>
+<body>
+
+<div class="header">
+	<div class="header-content">
+		<h1>ROB Failed</h1>
+		<button id="theme-toggle" type="button" class="theme-toggle">
+			<svg id="theme-toggle-dark-icon" class="icon hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+				<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+			</svg>
+			<svg id="theme-toggle-light-icon" class="icon hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+				<path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+			</svg>
+		</button>
+	</div>
+</div>
+
+<div class="container">
+	{{if eq .lines nil}}
+		<div class="code-container">
+			{{.error}}
+		</div>
+	{{end}}
+
+	{{range $line := .lines}}
+		<div class="output-line">
+			{{- $line.Content|breakLongLine|highlight -}}
+		</div>
+		{{with $cb := $line.Codeblock}}
+			<div class="code-container">
+				<div class="line-numbers">
+					{{ $ln := $cb.StartLineNum}}
+					{{range $codeLine := $cb.Code}}
+						<div>{{$codeLine.LineNum}}</div>
+					{{end}}
+				</div>
+				<div class="code-block">
+					{{range $codeLine := $cb.Code}}
+						<div class="line  {{if eq $codeLine.LineNum $cb.LineNum }}highlight{{end}}">
+							{{- if eq $codeLine.LineNum $cb.LineNum -}}
+								{{- $codeLine.Content|emphasize $cb.ColNum -}}
+							{{- else -}}
+								{{- $codeLine.Content -}}
+							{{- end -}}
+						</div>
+					{{end}}
+				</div>
+			</div>
+		{{end}}
+	{{end}}
+</div>
+
+<script>
+	if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+		document.documentElement.classList.add('dark');
+	} else {
+		document.documentElement.classList.remove('dark')
+	}
+
+	var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+	var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+	if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+		themeToggleLightIcon.classList.remove('hidden');
+	} else {
+		themeToggleDarkIcon.classList.remove('hidden');
+	}
+
+	var themeToggleBtn = document.getElementById('theme-toggle');
+
+	themeToggleBtn.addEventListener('click', function () {
+		themeToggleDarkIcon.classList.toggle('hidden');
+		themeToggleLightIcon.classList.toggle('hidden');
+
+		if (localStorage.getItem('color-theme')) {
+			if (localStorage.getItem('color-theme') === 'light') {
+				document.documentElement.classList.add('dark');
+				localStorage.setItem('color-theme', 'dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+				localStorage.setItem('color-theme', 'light');
+			}
+		} else {
+			if (document.documentElement.classList.contains('dark')) {
+				document.documentElement.classList.remove('dark');
+				localStorage.setItem('color-theme', 'light');
+			} else {
+				document.documentElement.classList.add('dark');
+				localStorage.setItem('color-theme', 'dark');
+			}
+		}
+	});
+</script>
+</body>
+</html>
